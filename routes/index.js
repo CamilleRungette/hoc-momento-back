@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
-var ActionModel = require('../models/cultural_actions')
-var ShowModel = require('../models/shows')
+var ActionModel = require('../models/cultural_actions');
+var ShowModel = require('../models/shows');
 
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-  console.log("Connection to back-end successful");
+  console.log("======> CONNECTION BACK-END SUCCESSFUL");
   res.render('index', { title: 'Express' });
 });
 
@@ -16,7 +16,7 @@ router.get('/shows', async function(req, res, next){
     if (!err){
       console.log("GET shows success");
     } else {
-      throw err;
+      console.log("ERROOOOOR ====>", err);;
     }
   }).clone()
   .catch(function(err){console.log("GET shows error:", err);});
