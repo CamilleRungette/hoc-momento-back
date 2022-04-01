@@ -14,7 +14,7 @@ router.get('/', async function(req, res, next) {
 router.get('/shows', async function(req, res, next){
   shows = await ShowModel.find({}, function(err, data){
     if (!err){
-      console.log("GET shows success");
+      console.log("======> GET shows success");
     } else {
       console.log("ERROOOOOR ====>", err);;
     }
