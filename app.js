@@ -18,7 +18,7 @@ const whitelist = "https://lighthearted-moonbeam-b6a8b2.netlify.app/"
 
 app.use(logger('dev'));
 app.use(cors({
-  origin: whitelist
+  origin: "*"
 }))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
