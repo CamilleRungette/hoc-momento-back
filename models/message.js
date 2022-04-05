@@ -5,7 +5,6 @@ let messageSchema = mongoose.Schema({
   name: String,
   email: String,
   content: String,
-  organisation: String,
   read: Boolean,
 })
 

@@ -6,12 +6,12 @@ var ShowModel = require('../models/shows');
 
 
 /* GET home page. */
-router.get('/', async function(req, res, next) {
+router.get('/', async function(req, res) {
   console.log("======> CONNECTION BACK-END SUCCESSFUL");
   res.render('index', { title: 'Express' });
 });
 
-router.get('/shows', async function(req, res, next){
+router.get('/shows', async function(req, res){
   shows = await ShowModel.find({}, function(err, data){
     if (!err){
       console.log("======> GET shows success");
@@ -24,7 +24,7 @@ router.get('/shows', async function(req, res, next){
   res.send(shows)
 })
 
-router.get('/actions', async function(req, res, next){
+router.get('/actions', async function(req, res){
   actions = await ActionModel.find({}, function(err, data){
     if (!err){
       console.log("GET actions success");
@@ -35,6 +35,11 @@ router.get('/actions', async function(req, res, next){
   .catch(function(err){console.log("GET actions error:", err);});
   actions.reverse();
   res.send(actions)
+});
+
+router.post('/message', function(res, res){
+  console.log(req);
+
 })
 
 
