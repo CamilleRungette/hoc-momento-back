@@ -1,8 +1,10 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var ActionModel = require('../models/cultural_actions');
-var ShowModel = require('../models/shows');
+const ActionModel = require('../models/cultural_actions');
+const ShowModel = require('../models/shows');
+const MessageModel = require('../models/message')
+
 
 
 /* GET home page. */
@@ -37,9 +39,24 @@ router.get('/actions', async function(req, res){
   res.send(actions)
 });
 
-router.post('/message', function(res, res){
-  console.log(req);
+router.post('/message', function(req, res){
+  console.log("MESSAGE ====>");
+  
+  let newMessage = new MessageModel({
+    date: new Date,
+    name: req.body.name, 
+    email: req.body.email, 
+    content: req.body.message, 
+    read: false
+  });
 
+  newMessage.save((err, msg) => {
+    if (err) console.log('error', err);
+    else if (msg){
+      console.log("Message successfully saved");
+      res.send(msg)
+    }
+  })
 })
 
 
