@@ -24,7 +24,12 @@ router.get('/shows', async function(req, res){
   .catch(function(err){console.log("GET shows error:", err);});
   shows.reverse();
   res.send(shows)
-})
+});
+
+router.get('/show', async function(req, res) {
+  show = await ShowModel.findOne({_id: req.query.id})
+  show ? res.send(show) : res.send({error: "No show found"})
+});
 
 router.get('/actions', async function(req, res){
   actions = await ActionModel.find({}, function(err, data){
