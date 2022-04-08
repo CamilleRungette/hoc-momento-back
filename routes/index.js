@@ -4,13 +4,34 @@ const router = express.Router();
 const ActionModel = require('../models/cultural_actions');
 const ShowModel = require('../models/shows');
 const MessageModel = require('../models/message')
-
+const EventModel = require('../models/event');
 
 /* GET home page. */
 router.get('/', async function(req, res) {
   console.log("======> CONNECTION BACK-END SUCCESSFUL");
   res.render('index', { title: 'Express' });
 });
+
+router.post('/message', function(req, res){
+  console.log("MESSAGE ====>");
+  
+  let newMessage = new MessageModel({
+    date: new Date,
+    name: req.body.name, 
+    email: req.body.email, 
+    content: req.body.message, 
+    read: false
+  });
+
+  newMessage.save((err, msg) => {
+    if (err) console.log('error', err);
+    else if (msg){
+      console.log("Message successfully saved");
+      res.send(msg)
+    }
+  });
+});
+
 
 router.get('/shows', async function(req, res){
   shows = await ShowModel.find({}, function(err, data){
@@ -48,26 +69,18 @@ router.get('/action', async function(req, res) {
   action ? res.send(action) : res.send({error: "No action found"})
 });
 
+router.get("/events", async function(res, res){
+  events = await EventModel.find({}, function(err, data){
+    if (!err){
+      console.log("======> GET shows success");
+    } else {
+      console.log("ERROOOOOR ====>", err);;
+    };
+  }).clone()
+  .catch(function(err){console.log("GET events error:", err)});
 
-router.post('/message', function(req, res){
-  console.log("MESSAGE ====>");
-  
-  let newMessage = new MessageModel({
-    date: new Date,
-    name: req.body.name, 
-    email: req.body.email, 
-    content: req.body.message, 
-    read: false
-  });
-
-  newMessage.save((err, msg) => {
-    if (err) console.log('error', err);
-    else if (msg){
-      console.log("Message successfully saved");
-      res.send(msg)
-    }
-  })
-})
+  res.send(events);
+});
 
 
 module.exports = router;
