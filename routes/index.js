@@ -6,7 +6,6 @@ const ShowModel = require('../models/shows');
 const MessageModel = require('../models/message')
 
 
-
 /* GET home page. */
 router.get('/', async function(req, res) {
   console.log("======> CONNECTION BACK-END SUCCESSFUL");
@@ -43,6 +42,12 @@ router.get('/actions', async function(req, res){
   actions.reverse();
   res.send(actions)
 });
+
+router.get('/action', async function(req, res) {
+  action = await ActionModel.findOne({_id: req.query.id})
+  action ? res.send(action) : res.send({error: "No action found"})
+});
+
 
 router.post('/message', function(req, res){
   console.log("MESSAGE ====>");
