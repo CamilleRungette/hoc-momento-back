@@ -54,7 +54,7 @@ router.get('/show', async function(req, res) {
 router.get('/actions', async function(req, res){
   actions = await ActionModel.find({}, function(err, data){
     if (!err){
-      console.log("GET actions success");
+      console.log("======> GET actions success");
     } else {
       throw err;
     }
@@ -72,7 +72,7 @@ router.get('/action', async function(req, res) {
 router.get("/events", async function(res, res){
   events = await EventModel.find({}, function(err, data){
     if (!err){
-      console.log("======> GET shows success");
+      console.log("======> GET events success");
     } else {
       console.log("ERROOOOOR ====>", err);;
     };

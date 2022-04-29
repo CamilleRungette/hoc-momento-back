@@ -3,10 +3,9 @@ const mongoose = require('./db');
 let eventSchema = mongoose.Schema({
     photo: String, 
     title: String, 
-    show: Array,
+    dates: Array,
     description: String,
     type: String,
-    page: String,
 });
 
 const eventModel = mongoose.model("events", eventSchema);
