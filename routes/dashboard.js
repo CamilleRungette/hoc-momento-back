@@ -37,7 +37,7 @@ router.post('/create-admin', function(req, res, next){
 router.post('/login', async function(req, res, next){
   
   searchAdmin = await AdminModel.findOne({email: req.body.email})
-  console.log(searchAdmin);
+
   if (!searchAdmin){
     res.send("email");
   } else {
