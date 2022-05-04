@@ -71,4 +71,42 @@ router.post('/create-event', async (req, res) => {
   };
 });
 
+router.post('/edit-event', async (req, res) => {
+  try{
+    thisEvent = await EventModel.findOne({_id: req.body._id});
+    if (thisEvent){
+      update = await EventModel.updateOne(
+        {_id: thisEvent._id},
+        {
+          title: req.body.title,
+          description: req.body.description,
+          dates: req.body.dates,
+          photo: req.body.photo,
+          title: req.body.title,
+        }
+      )
+      updatedEvent = await EventModel.findOne({_id: req.body._id});
+      res.send(updatedEvent);
+    } else {
+      res.send("no document");
+    };
+
+  } catch (error) {
+    console.log(error);
+    res.send(error)
+  };
+});
+
+router.post('/delete-event', async (req, res) => {
+  try{
+    EventModel.deleteOne({_id: req.body.id}, function(err, event) {
+      if (event) res.send("success");
+      if(err) res.send({error: err})
+    });
+  } catch(error){
+    console.log(error);
+    res.send(error);
+  };
+});
+
 module.exports = router;
