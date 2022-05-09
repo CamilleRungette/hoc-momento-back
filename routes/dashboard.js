@@ -7,7 +7,7 @@ const uid2 = require("uid2");
 
 const EventModel = require('../models/event');
 const AdminModel = require('../models/admin');
-
+const ShowModel = require('../models/shows');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -61,12 +61,31 @@ router.post('/create-event', async (req, res) => {
         console.log('Error:', err);
         res.send(err);
       } else if (event){
-        console.log("Event successfully saved");
+        console.log("EVENT SAVED SUCCESSFULLY");
         res.send(event);
       };
-    })
+    });
   } catch(error) {
-    console.log("Error while creating new event:", error);
+    console.log("ERROR WHILE CREATING NEW EVENT:", error);
+    res.send(error)
+  };
+});
+
+router.post('/create-show', async (req, res) => {
+  
+  newShow = new ShowModel(req.body);
+
+  try{
+    newShow.save((err, show) => {
+      if (err) {
+        console.log('Error:', err);
+      } else if (show){
+        console.log('SHOW CREATED SUCCESSFULLY');
+        res.send(show);
+      };
+    });
+  } catch (error) {
+    console.log("ERROR WHILE CREATING THE SHOW:", error);
     res.send(error)
   };
 });

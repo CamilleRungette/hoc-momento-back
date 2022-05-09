@@ -13,7 +13,6 @@ router.get('/', async function(req, res) {
 });
 
 router.post('/message', function(req, res){
-  console.log("MESSAGE ====>");
   
   let newMessage = new MessageModel({
     date: new Date,
@@ -26,7 +25,7 @@ router.post('/message', function(req, res){
   newMessage.save((err, msg) => {
     if (err) console.log('error', err);
     else if (msg){
-      console.log("Message successfully saved");
+      console.log("MESSAGE SAVED SUCCESSFULLY");
       res.send(msg)
     }
   });
@@ -36,14 +35,14 @@ router.post('/message', function(req, res){
 router.get('/shows', async function(req, res){
   shows = await ShowModel.find({}, function(err, data){
     if (!err){
-      console.log("======> GET shows success");
+      console.log("======> GET SHOWS SUCCESS");
     } else {
       console.log("ERROOOOOR ====>", err);;
     }
   }).clone()
-  .catch(function(err){console.log("GET shows error:", err);});
+  .catch(function(err){console.log("GET SHOWS ERROR", err);});
   shows.reverse();
-  res.send(shows)
+  res.send(shows);
 });
 
 router.get('/show', async function(req, res) {
@@ -54,12 +53,12 @@ router.get('/show', async function(req, res) {
 router.get('/actions', async function(req, res){
   actions = await ActionModel.find({}, function(err, data){
     if (!err){
-      console.log("======> GET actions success");
+      console.log("======> GET ACTIONS SUCCESS");
     } else {
       throw err;
     }
   }).clone()
-  .catch(function(err){console.log("GET actions error:", err);});
+  .catch(function(err){console.log("GET ACTIONS ERROR:", err);});
   actions.reverse();
   res.send(actions)
 });
@@ -72,12 +71,12 @@ router.get('/action', async function(req, res) {
 router.get("/events", async function(res, res){
   events = await EventModel.find({}, function(err, data){
     if (!err){
-      console.log("======> GET events success");
+      console.log("======> GET EVENTS SUCCESS");
     } else {
       console.log("ERROOOOOR ====>", err);;
     };
   }).clone()
-  .catch(function(err){console.log("GET events error:", err)});
+  .catch(function(err){console.log("GET EVENTS ERROR:", err)});
 
   res.send(events);
 });
