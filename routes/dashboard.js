@@ -8,8 +8,9 @@ const uid2 = require("uid2");
 const EventModel = require('../models/event');
 const AdminModel = require('../models/admin');
 const ShowModel = require('../models/shows');
+const ActionModel = require('../models/cultural_actions');
 
-/* GET users listing. */
+// ============================ COMMON ============================ //
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
@@ -52,6 +53,9 @@ router.post('/login', async function(req, res, next){
   };
 });
 
+
+// ============================ CREATE ============================ //
+
 router.post('/create-event', async (req, res) => {
   newEvent = new EventModel(req.body);
 
@@ -90,6 +94,9 @@ router.post('/create-show', async (req, res) => {
   };
 });
 
+
+// ============================ EDIT ============================ //
+
 router.post('/edit-event', async (req, res) => {
   try{
     thisEvent = await EventModel.findOne({_id: req.body._id});
@@ -116,9 +123,75 @@ router.post('/edit-event', async (req, res) => {
   };
 });
 
+router.post('/edit-show', async (req, res) => {
+  try {
+    thisShow = await ShowModel.findOne({_id: req.body._id});
+
+    if (thisShow) {
+      update = await ShowModel.updateOne(
+        {_id: thisShow._id},
+        {
+          title: req.body.title, 
+          description: req.body.description,
+          dates: req.body.dates,
+          links: req.body.links
+        }
+      );
+
+      updatedShow = await ShowModel.findOne({_id: req.body._id});
+      res.send(updatedShow);   
+    } else {
+      res.send('no show')
+    };
+
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  };
+});
+
+router.post('/edit-gallery', async (req, res) => {
+  try{
+    if (req.body.type === "show") {
+      thisShow = await ShowModel.findOne({_id: req.body._id});
+
+      if (thisShow){
+        update = await ShowModel.updateOne(
+          {_id: thisShow._id},
+          {gallery: req.body.gallery}
+        );
+
+        updatedShow = await ShowModel.findOne({_id: req.body._id});
+        res.send(updatedShow); 
+      } else { res.send("no show")};
+    } else if (req.body.type === "action") {
+      item = await ActionModel.findOne({_id: req.body._id})
+    
+    };
+  } catch(error) {
+    console.log(error);
+    res.send(error)
+  };
+});
+
+
+// ============================ DELETE ============================ //
+
 router.post('/delete-event', async (req, res) => {
   try{
     EventModel.deleteOne({_id: req.body.id}, function(err, event) {
+      if (event) res.send("success");
+      if(err) res.send({error: err})
+    });
+  } catch(error){
+    console.log(error);
+    res.send(error);
+  };
+});
+
+router.post('/delete-show', async (req, res) => {
+  try{
+    ShowModel.deleteOne({_id: req.body.id}, function(err, event) {
       if (event) res.send("success");
       if(err) res.send({error: err})
     });
