@@ -174,7 +174,6 @@ router.post('/edit-gallery', async (req, res) => {
   };
 });
 
-
 // ============================ DELETE ============================ //
 
 router.post('/delete-event', async (req, res) => {
