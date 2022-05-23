@@ -1,18 +1,17 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 var options = {
   connectTimeoutMS: 5000,
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 };
 
-require('dotenv').config()
+require("dotenv").config();
 
-
-mongoose.connect(process.env.MONGO_ACCESS_OLD, options, error =>{
-	if (error) {
-   console.log("ATTENTION ERREUR:", error);
+mongoose.connect(process.env.MONGO_ACCESS_OLD, options, (error) => {
+  if (error) {
+    console.log("ATTENTION ERREUR:", error);
   } else {
-  	console.log("Serveur BDD connecté")
+    console.log("Serveur BDD connecté");
   }
 });
 
@@ -20,6 +19,5 @@ mongoose.connect(process.env.MONGO_ACCESS_OLD, options, error =>{
 // by default, you need to set it to false.
 // https://mongoosejs.com/docs/deprecations.html
 // mongoose.set('useFindAndModify', false);
-
 
 module.exports = mongoose;
