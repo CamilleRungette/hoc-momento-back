@@ -45,8 +45,6 @@ router.get("/shows", async function (req, res) {
 
   shows = shows.filter((show) => show.title !== "Test");
 
-  console.log(shows);
-
   shows.reverse();
   res.send(shows);
 });
