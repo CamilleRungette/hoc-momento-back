@@ -43,7 +43,7 @@ router.get("/shows", async function (req, res) {
       console.log("GET SHOWS ERROR", err);
     });
 
-  shows = shows.filter((show) => show.title !== "Test");
+  // shows = shows.filter((show) => show.title !== "Test");
 
   shows.reverse();
   res.send(shows);
@@ -88,7 +88,7 @@ router.get("/events", async function (res, res) {
       console.log("GET EVENTS ERROR:", err);
     });
 
-  events = events.filter((event) => event.title !== "Test");
+  // events = events.filter((event) => event.title !== "Test");
 
   res.send(events);
 });
