@@ -107,14 +107,6 @@ router.post("/edit-event", async (req, res) => {
           title: req.body.title,
         }
       );
-      //   events = await EventModel.find({}, function (err, data) {
-      //     if (!err) {
-      //       console.log("======> GET EVENTS SUCCESS");
-      //     } else {
-      //       console.log("ERROOOOOR ====>", err);
-      //     }
-      //   });
-      // } else {
       res.send("success");
     }
   } catch (error) {
