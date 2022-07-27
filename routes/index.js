@@ -8,7 +8,7 @@ const EventModel = require("../models/event");
 
 /* GET home page. */
 router.get("/", async function (req, res) {
-  console.log("======> CONNECTION BACK-END SUCCESSFUL");
+  console.log("======> CONNECTION BACK-END SUCCESSFUL !");
   res.render("index", { title: "Express" });
 });
 
