@@ -66,6 +66,9 @@ router.get("/actions", async function (req, res) {
     .catch(function (err) {
       console.log("GET ACTIONS ERROR:", err);
     });
+
+  actions = actions.filter((action) => action.place !== "Test");
+
   actions.reverse();
   res.send(actions);
 });

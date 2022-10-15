@@ -192,4 +192,16 @@ router.post("/delete-show", async (req, res) => {
   }
 });
 
+router.post("/delete-action", async (req, res) => {
+  try {
+    ActionModel.deleteOne({ _id: req.body.id }, function (err, action) {
+      if (action) res.send("success");
+      if (err) res.send({ error: err });
+    });
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
+});
+
 module.exports = router;
